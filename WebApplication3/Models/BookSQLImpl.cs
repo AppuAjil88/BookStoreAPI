@@ -56,7 +56,27 @@ namespace WebApplication3.Models
 
         public List<Book> GetBookByCatId(int id)
         {
-            throw new NotImplementedException();
+            List<Book> bookList = new List<Book>();
+            string ConnectionStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(ConnectionStr))
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = $"Select * from Book where CatId= '{id}'";
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    Book book = new Book();
+                    book.Id = dr.GetInt32(0);
+                    book.Title = dr.GetString(1);
+                    book.Author = dr.GetString(2);
+                    book.Price = dr.GetInt32(3);
+                    book.Description = dr.GetString(4);
+                    bookList.Add(book);
+                }
+            }
+            return bookList;
         }
 
         public Book GetBookById(int id)
