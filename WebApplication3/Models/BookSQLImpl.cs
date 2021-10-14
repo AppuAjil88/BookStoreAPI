@@ -67,16 +67,24 @@ namespace WebApplication3.Models
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = $"Select * from Books where Id = '{id}'";
+                command.CommandText = $"Select * from Book where BookId = '{id}'";
                 connection.Open();
                 SqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
                     book.Id = dr.GetInt32(0);
-                    book.Title = dr.GetString(1);
-                    book.Author = dr.GetString(2);
-                    book.Price = dr.GetInt32(3);
-                    book.Description = dr.GetString(4);
+                    book.CatId = dr.GetInt32(1);
+                    book.Title = dr.GetString(2);
+                    book.ISBN = dr.GetInt32(3);
+                    book.Year = dr.GetInt32(4);
+                    book.Price = dr.GetInt32(5);
+                    book.Description = dr.GetString(6);
+                    book.Position = dr.GetInt32(7);
+                    if (dr.GetBoolean(8)) { book.Status = true; }
+                    else { book.Status = false; }
+                    book.Image = dr.GetString(9);
+                    book.Author = dr.GetString(10);
+                    
                 }
             }
             return book;

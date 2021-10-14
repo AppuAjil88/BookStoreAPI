@@ -25,12 +25,12 @@ namespace WebApplication3.Controllers
             return repository.BestSeller();
         }
         [HttpGet]
+        [Route("catid")]
         public List<Book> Get(int id)
         {
             return repository.GetBookByCatId(id);
         }
         [HttpGet]
-        [Route("bookid")]
         public Book GetBook(int id)
         {
             return repository.GetBookById(id);
