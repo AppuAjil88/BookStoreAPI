@@ -7,19 +7,18 @@ using System.Data.SqlClient;
 
 namespace WebApplication3.Models
 {
-
-    public class CartSQLImpl : ICartRepository
+    public class WishListSQLImpl: IWishListRepository
     {
-        public List<Book> GetCartById(int userId)
+        public List<Book> GetWishListById(int userId)
         {
-           
+
             List<Book> BookItems = new List<Book>();
             List<int> Ids = new List<int>();
             string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand();
-                comm.CommandText = "select BookID from Cart where UserID = " + userId + "";
+                comm.CommandText = "select BookID from Wishlist where UserID = " + userId + "";
                 comm.Connection = conn;
                 conn.Open();
                 SqlDataReader dr = comm.ExecuteReader();
@@ -65,28 +64,28 @@ namespace WebApplication3.Models
             return BookItems;
         }
 
-        public bool addBookToCartById(int userId, int bookId)
+        public bool addBookToWishListById(int userId, int bookId)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand();
-                comm.CommandText = "insert into Cart  values (" + userId + ", " + bookId + ")";
+                comm.CommandText = "insert into Wishlist  values (" + userId + ", " + bookId + ")";
                 comm.Connection = conn;
                 conn.Open();
-                comm.ExecuteNonQuery();
+                SqlDataReader dr = comm.ExecuteReader(); //comm.ExecuteNonQuery();
                 conn.Close();
                 return true;
             }
         }
 
-        public bool RemoveFromCartById(int userId, int bookId)
+        public bool RemoveFromWishListById(int userId, int bookId)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand();
-                comm.CommandText = "delete from Cart where UserId = " + userId + "and BookId = " + bookId;
+                comm.CommandText = "delete from Wishlist where UserId = " + userId + "and BookId = " + bookId;
                 comm.Connection = conn;
                 conn.Open();
                 comm.ExecuteReader();
@@ -94,13 +93,13 @@ namespace WebApplication3.Models
                 return true;
             }
         }
-        public bool RemoveCartofUser(int userId)
+        public bool RemoveWishListofUser(int userId)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand();
-                comm.CommandText = "delete from Cart where UserId = " + userId + " ";
+                comm.CommandText = "delete from Wishlist where UserId = " + userId + " ";
                 comm.Connection = conn;
                 conn.Open();
                 comm.ExecuteReader();
@@ -110,4 +109,3 @@ namespace WebApplication3.Models
         }
     }
 }
-
