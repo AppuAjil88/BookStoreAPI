@@ -117,6 +117,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -126,10 +127,12 @@
     <Compile Include="Models\AddressSQLImpl.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookSQLImpl.cs" />
+    <Compile Include="Models\CartSQLImpl.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategorySQLImpl.cs" />
     <Compile Include="Models\IAddressRespository.cs" />
     <Compile Include="Models\IBookRepository.cs" />
+    <Compile Include="Models\ICartRepository.cs" />
     <Compile Include="Models\ICategoryRespository.cs" />
     <Compile Include="Models\IUserRepository.cs" />
     <Compile Include="Models\User.cs" />
