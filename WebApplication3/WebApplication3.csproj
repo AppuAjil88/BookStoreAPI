@@ -117,8 +117,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WishListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -126,14 +128,18 @@
     <Compile Include="Models\AddressSQLImpl.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookSQLImpl.cs" />
+    <Compile Include="Models\CartSQLImpl.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategorySQLImpl.cs" />
     <Compile Include="Models\IAddressRespository.cs" />
     <Compile Include="Models\IBookRepository.cs" />
+    <Compile Include="Models\ICartRepository.cs" />
     <Compile Include="Models\ICategoryRespository.cs" />
     <Compile Include="Models\IUserRepository.cs" />
+    <Compile Include="Models\IWishListRepository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserSQLImpl.cs" />
+    <Compile Include="Models\WishListSQLImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebFormBookAdd.aspx.cs">
       <DependentUpon>WebFormBookAdd.aspx</DependentUpon>
