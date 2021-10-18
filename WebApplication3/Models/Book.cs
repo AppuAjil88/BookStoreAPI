@@ -19,5 +19,6 @@ namespace WebApplication3.Models
         public bool Status { get; set; }
         public string Image { get; set; }
 
+
     }
 }
