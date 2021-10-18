@@ -20,12 +20,13 @@ namespace WebApplication3.Controllers
         }
 
         [HttpGet]
+        [Route("api/book/bestseller")]
         public List<Book> Get()
         {
             return repository.BestSeller();
         }
         [HttpGet]
-        [Route("catid")]
+        [Route("api/book/catid/{id}")]
         public List<Book> Get(int id)
         {
             return repository.GetBookByCatId(id);
@@ -43,9 +44,9 @@ namespace WebApplication3.Controllers
         }
 
         [HttpDelete]
-        public Book Post(int id)
+        public void Post(int id)
         {
-            return repository.DeleteBook(id);
+             repository.DeleteBook(id);
         }
 
         [HttpPut]

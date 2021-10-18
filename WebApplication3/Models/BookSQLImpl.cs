@@ -17,7 +17,7 @@ namespace WebApplication3.Models
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = $"insert into Books (Id, Title, Author, Price, Description) values ({b.Id}, '{b.Title}', '{b.Author}', {b.Price}, '{b.Description}')";
+                command.CommandText = $"insert into Book (CategoryId, Title, ISBN, Year, Price, Description, Position, Status, Image, Author) values ({b.CatId}, '{b.Title}', {b.ISBN},{b.Year}, {b.Price}, '{b.Description}', {b.Position}, '{b.Status}', '{b.Image}', '{b.Author}'  )";
                 connection.Open();
                 SqlDataReader dr = command.ExecuteReader();
             }
@@ -26,22 +26,18 @@ namespace WebApplication3.Models
 
         public List<Book> BestSeller()
         {
-            throw new NotImplementedException();
-        }
-
-        public Book DeleteBook(int id)
-        {
-            Book book = new Book();
+            List<Book> bookList = new List<Book>();
             string ConnectionStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(ConnectionStr))
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = $"delete from Book where BookId = '{id}'";
+                command.CommandText = $"Select top 10 * from Book order by Position";
                 connection.Open();
                 SqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
+                    Book book = new Book();
                     book.Id = dr.GetInt32(0);
                     book.CatId = dr.GetInt32(1);
                     book.Title = dr.GetString(2);
@@ -54,9 +50,24 @@ namespace WebApplication3.Models
                     else { book.Status = false; }
                     book.Image = dr.GetString(9);
                     book.Author = dr.GetString(10);
+                    bookList.Add(book);
                 }
             }
-            return book;
+            return bookList;
+        }
+
+        public void DeleteBook(int id)
+        {
+            Book book = new Book();
+            string ConnectionStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(ConnectionStr))
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = $"delete from Book where BookId = '{id}'";
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+            }   
         }
 
 
@@ -69,7 +80,7 @@ namespace WebApplication3.Models
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = $"Select * from Book where CategoryID= '{id}'";
+                command.CommandText = $"Select * from Book where CategoryID = '{id}'";
                 connection.Open();
                 SqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
@@ -125,13 +136,16 @@ namespace WebApplication3.Models
         }
 
         public Book UpdateBook(int id, Book b)
-        {
+        { 
+            int statusTemp;
+            if (b.Status) { statusTemp = 1; }
+            else { statusTemp = 0; }
             string connectionStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionStr))
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = $"update Books set Title='{b.Title}', Author='{b.Author}', Price={b.Price}, Description='{b.Description}'  where Id='{id}'";
+                command.CommandText = $"update Book set CategoryId = {b.CatId}, Title = '{b.Title}', ISBN = {b.ISBN}, Year = {b.Year}, Price = {b.Price}, Description = '{b.Description}', Position = {b.Position}, Status = {statusTemp}, Image = '{b.Image}', Author = '{b.Author}' where BookId = {id}";
                 connection.Open();
                 SqlDataReader dr = command.ExecuteReader();
                 return b;

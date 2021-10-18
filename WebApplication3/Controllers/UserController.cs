@@ -35,6 +35,12 @@ namespace WebApplication3.Controllers
         {
             return repository.Login(u);
         }
+
+        [HttpPut]
+        public String Put(User u)
+        {
+            return repository.Disable(u);
+        }
     }
 
 }

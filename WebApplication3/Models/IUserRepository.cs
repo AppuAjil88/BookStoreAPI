@@ -10,6 +10,7 @@ namespace WebApplication3.Models
         string Login(User u); // check email is present in table and passwords match.
         User Register(User u); //post && update table
 
+        string Disable(User u); 
         List<User> GetAllUser();
     }
 }

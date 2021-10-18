@@ -12,6 +12,6 @@ namespace WebApplication3.Models
         Book GetBookById(int id);
         Book AddBook(Book b);
         Book UpdateBook(int id, Book b);
-        Book DeleteBook(int id);
+        void DeleteBook(int id);
     }
 }
