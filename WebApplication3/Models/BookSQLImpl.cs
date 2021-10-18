@@ -145,7 +145,7 @@ namespace WebApplication3.Models
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = $"update Book set CategoryId = {b.CatId}, Title = '{b.Title}', ISBN = {b.ISBN}, Year = {b.Year}, Price = {b.Year}, Description = '{b.Description}', Position = {b.Position}, Status = {statusTemp}, Image = '{b.Image}', Author = '{b.Author}' where BookId = {id}";
+                command.CommandText = $"update Book set CategoryId = {b.CatId}, Title = '{b.Title}', ISBN = {b.ISBN}, Year = {b.Year}, Price = {b.Price}, Description = '{b.Description}', Position = {b.Position}, Status = {statusTemp}, Image = '{b.Image}', Author = '{b.Author}' where BookId = {id}";
                 connection.Open();
                 SqlDataReader dr = command.ExecuteReader();
                 return b;
