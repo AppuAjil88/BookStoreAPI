@@ -27,25 +27,11 @@ namespace WebApplication3.Controllers
             return Ok(data);
         }
 
-        [HttpGet]
-        [Route("api/cart/add/{userId}/{bookId}")]
-        public HttpResponseMessage addBookToCartById(int userId, int bookId)
-        {
-            var data = repository.addBookToCartById(userId, bookId);
-            if (data == true)
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, data);
-            }
-            else
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, " book not added to cart");
-            }
-        }
-        //[HttpPost]
-        //[Route("api/cart/add/{cartItemPassing}")]
-        //public HttpResponseMessage PostaddBookToCartById(cartItemPassing cartItem)
+        //[HttpGet]
+        //[Route("api/cart/add/{userId}/{bookId}")]
+        //public HttpResponseMessage addBookToCartById(int userId, int bookId)
         //{
-        //    var data = repository.addBookToCartById(cartItem);
+        //    var data = repository.addBookToCartById(userId, bookId);
         //    if (data == true)
         //    {
         //        return Request.CreateResponse(HttpStatusCode.OK, data);
@@ -55,6 +41,35 @@ namespace WebApplication3.Controllers
         //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, " book not added to cart");
         //    }
         //}
+        [HttpPost]
+        [Route("api/cart/add")]
+        public HttpResponseMessage PostaddBookToCartById(CartItem cartItem)
+        {
+            var data = repository.addBookToCartById(cartItem);
+            if (data == true)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, " book not added to cart");
+            }
+        }
+
+        [HttpGet]
+        [Route("api/cart/add/{userId}/{bookId}")]
+        public HttpResponseMessage GetAddBookToCartById(int userId, int bookId)
+        {
+            var result = repository.GetAddBookToCartById(userId, bookId);
+            if (result == true)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "Item added");
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item not added");
+            }
+        }
 
         [HttpGet]
         [Route("api/cart/remove/{userId}/{bookId}")]

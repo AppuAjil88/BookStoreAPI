@@ -10,8 +10,9 @@ namespace WebApplication3.Models
     {
         List<Book> GetCartById(int userId);
 
-        bool addBookToCartById(int userId, int bookId);
-
+        //bool addBookToCartById(int userId, int bookId);
+        bool addBookToCartById(CartItem cartItem);
+        bool GetAddBookToCartById(int userId, int bookId);
         bool RemoveFromCartById(int userId, int bookId);
         bool RemoveCartofUser(int userId);
     }

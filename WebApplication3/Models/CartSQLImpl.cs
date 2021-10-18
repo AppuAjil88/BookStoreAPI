@@ -65,7 +65,35 @@ namespace WebApplication3.Models
             return BookItems;
         }
 
-        public bool addBookToCartById(int userId, int bookId)
+        //public bool addBookToCartById(int userId, int bookId)
+        //{
+        //    string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
+        //    using (SqlConnection conn = new SqlConnection(connectionString))
+        //    {
+        //        SqlCommand comm = new SqlCommand();
+        //        comm.CommandText = "insert into Cart  values (" + userId + ", " + bookId + ")";
+        //        comm.Connection = conn;
+        //        conn.Open();
+        //        comm.ExecuteNonQuery();
+        //        conn.Close();
+        //        return true;
+        //    }
+        //}
+        public bool addBookToCartById(CartItem cartitem)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand comm = new SqlCommand();
+                comm.CommandText = "insert into Cart  values (" + cartitem.userId + ", " + cartitem.bookId + ")";
+                comm.Connection = conn;
+                conn.Open();
+                comm.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+        }
+        public bool GetAddBookToCartById(int userId, int bookId)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -79,6 +107,7 @@ namespace WebApplication3.Models
                 return true;
             }
         }
+
 
         public bool RemoveFromCartById(int userId, int bookId)
         {
