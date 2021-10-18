@@ -20,6 +20,7 @@ namespace WebApplication3.Controllers
         }
 
         [HttpGet]
+        [Route("api/book/bestseller")]
         public List<Book> Get()
         {
             return repository.BestSeller();
