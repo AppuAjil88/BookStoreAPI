@@ -99,6 +99,20 @@ namespace WebApplication3.Models
 
             return "User disabled";
         }
+        public string Activate(User u)
+        {
+            string ConnectionStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(ConnectionStr))
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = $"update  [User] set Active = 1 where UserID = {u.UserId}";
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+            }
+
+            return "User activated";
+        }
 
         public User GetUserById(int id)
         {

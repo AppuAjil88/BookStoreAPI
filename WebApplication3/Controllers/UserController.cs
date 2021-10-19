@@ -44,9 +44,16 @@ namespace WebApplication3.Controllers
         }
 
         [HttpPut]
+        [Route("api/user/disable")]
         public String Put(User u)
         {
             return repository.Disable(u);
+        }
+        [HttpPut]
+        [Route("api/user/activate")]
+        public String PutActivate(User u)
+        {
+            return repository.Activate(u);
         }
     }
 
