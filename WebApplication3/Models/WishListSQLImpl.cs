@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 
 namespace WebApplication3.Models
 {
+
     public class WishListSQLImpl: IWishListRepository
     {
         public List<Book> GetWishListById(int userId)

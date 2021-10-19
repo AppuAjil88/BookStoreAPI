@@ -129,6 +129,7 @@
     <Compile Include="Models\AddressSQLImpl.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookSQLImpl.cs" />
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\CartSQLImpl.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategorySQLImpl.cs" />
