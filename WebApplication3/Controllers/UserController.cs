@@ -38,7 +38,7 @@ namespace WebApplication3.Controllers
         }
         [HttpPost]
         [Route("login")]
-        public String PostLogin(User u)
+        public User PostLogin(User u)
         {
             return repository.Login(u);
         }
