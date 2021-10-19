@@ -99,5 +99,32 @@ namespace WebApplication3.Models
 
             return "User disabled";
         }
+
+        public User GetUserById(int id)
+        {
+            User user = new User();
+            string ConnectionStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(ConnectionStr))
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = $"Select * from [User] where UserID = {id}";
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    
+                    user.UserId = dr.GetInt32(0);
+                    user.Name = dr.GetString(1);
+                    user.Email = dr.GetString(2);
+                    user.Password = dr.GetString(3);
+                    if (dr.GetBoolean(4)) { user.Active = true; }
+                    else { user.Active = false; }
+                    
+                }
+            }
+            return user;
+
+        }
     }
 }

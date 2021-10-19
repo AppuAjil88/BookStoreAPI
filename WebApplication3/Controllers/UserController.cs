@@ -23,6 +23,13 @@ namespace WebApplication3.Controllers
         {
             return repository.GetAllUser();
         }
+
+        [HttpGet]
+        public User Get(int id)
+        {
+            return repository.GetUserById(id);
+        }
+
         [HttpPost]
         [Route("register")]
         public User PostRegister(User u)
