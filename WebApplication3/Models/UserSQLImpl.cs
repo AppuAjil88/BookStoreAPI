@@ -35,36 +35,43 @@ namespace WebApplication3.Models
             return userList;
         }
 
-        public string Login(User u)
+        public User Login(User u)
         {
             string password="";
+            User user = new User();
             string ConnectionStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(ConnectionStr))
             {
-                
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = $"select trim(Password) from [User] where Email='{u.Email}'";
+                command.CommandText = $"Select * from [User] where Email = '{u.Email}'";
                 connection.Open();
                 SqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
-                    password = dr.GetString(0);
+
+                    user.UserId = dr.GetInt32(0);
+                    user.Name = dr.GetString(1);
+                    user.Email = dr.GetString(2);
+                    password = dr.GetString(3);
+                    if (dr.GetBoolean(4)) { user.Active = true; }
+                    else { user.Active = false; }
+
                 }
-            } 
-            if(password.Length == 0)
+            }
+            if (password.Length == 0)
             {
-                return "Email not registered.";
+                return new User();
             }
             else
             {
-                if(password == u.Password)
+                if(password == u.Password && user.Active == true)
                 {
-                    return "Successfully Loggedin";
+                    return user;
                 }
                 else
                 {
-                    return "Incorrect Email or Password";
+                    return new User();
                 }
             }
             
@@ -98,6 +105,47 @@ namespace WebApplication3.Models
             }
 
             return "User disabled";
+        }
+        public string Activate(User u)
+        {
+            string ConnectionStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(ConnectionStr))
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = $"update  [User] set Active = 1 where UserID = {u.UserId}";
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+            }
+
+            return "User activated";
+        }
+
+        public User GetUserById(int id)
+        {
+            User user = new User();
+            string ConnectionStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(ConnectionStr))
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = $"Select * from [User] where UserID = {id}";
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    
+                    user.UserId = dr.GetInt32(0);
+                    user.Name = dr.GetString(1);
+                    user.Email = dr.GetString(2);
+                    user.Password = dr.GetString(3);
+                    if (dr.GetBoolean(4)) { user.Active = true; }
+                    else { user.Active = false; }
+                    
+                }
+            }
+            return user;
+
         }
     }
 }

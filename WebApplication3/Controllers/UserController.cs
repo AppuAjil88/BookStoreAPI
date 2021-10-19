@@ -23,6 +23,13 @@ namespace WebApplication3.Controllers
         {
             return repository.GetAllUser();
         }
+
+        [HttpGet]
+        public User Get(int id)
+        {
+            return repository.GetUserById(id);
+        }
+
         [HttpPost]
         [Route("register")]
         public User PostRegister(User u)
@@ -31,15 +38,22 @@ namespace WebApplication3.Controllers
         }
         [HttpPost]
         [Route("login")]
-        public String PostLogin(User u)
+        public User PostLogin(User u)
         {
             return repository.Login(u);
         }
 
         [HttpPut]
+        [Route("api/user/disable")]
         public String Put(User u)
         {
             return repository.Disable(u);
+        }
+        [HttpPut]
+        [Route("api/user/activate")]
+        public String PutActivate(User u)
+        {
+            return repository.Activate(u);
         }
     }
 
