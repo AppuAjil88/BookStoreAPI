@@ -15,7 +15,7 @@ namespace WebApplication3.Models
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand();
-                comm.CommandText = "insert into Category ( CategoryName, Description, Image, Status, Position, CreatedAt) values ('" + category.CategoryName + "', '" + category.Description + "' , '" + category.Image + "'," + category.Status + "," + category.Position + ", CAST( GETDATE() AS Date )) ";
+                comm.CommandText = "insert into Category ( CategoryName, Description, Image, Status, Position, CreatedAt) values ('" + category.CategoryName + "', '" + category.Description + "' , '" + category.Image + "'," + 1 + "," + category.Position + ", CAST( GETDATE() AS Date )) ";
                 comm.Connection = conn;
                 conn.Open();
                 int rows = comm.ExecuteNonQuery();
