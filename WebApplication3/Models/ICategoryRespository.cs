@@ -15,5 +15,7 @@ namespace WebApplication3.Models
 
         bool DisableCategory(int catID);
         bool EnableCategory(int catID);
+
+        List<Category> GetCategoriesBySearch(string searchString);
     }
 }
