@@ -47,7 +47,7 @@ namespace WebApplication3.Controllers
         [Route("api/cart/add/{userId}/{bookId}")]
         public HttpResponseMessage GetAddBookToCartById(int userId, int bookId)
         {
-            var result = repository.addBookToCartById(userId, bookId);
+            var result = repository.AddBookToCartById(userId, bookId);
             if (result == true)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, "Item added");
@@ -55,6 +55,21 @@ namespace WebApplication3.Controllers
             else
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item not added");
+            }
+        }
+
+        [HttpGet]
+        [Route("api/cart/add/{userId}/{bookId}/{quantity}")]
+        public HttpResponseMessage UpdateCartByQuantity(int userId, int bookId, int quantity)
+        {
+            var result = repository.UpdateCartByQuantity(userId, bookId, quantity);
+            if(result == true)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "Qnatity updated");
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Quantity not updated");
             }
         }
 

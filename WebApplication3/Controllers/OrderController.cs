@@ -27,6 +27,13 @@ namespace WebApplication3.Controllers
             var result = repository.viewOrdersByUserID(id);
             return Ok(result);
         }
+        [HttpGet]
+        [Route("api/order/user/{userId}")]
+        public IHttpActionResult GetByUserIdforOrder(int userId)
+        {
+            var result = repository.viewOrdersByUserIDorder(userId);
+            return Ok(result);
+        }
 
         [HttpGet]
         public IHttpActionResult Get()

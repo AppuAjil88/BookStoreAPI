@@ -10,7 +10,11 @@ namespace WebApplication3.Models
     {
         Order addOrder(Order order);
         List<Order> viewOrdersByUserID(int id);
+        
         List<Order> viewAllOrders();
+        List<BookItemForOrder> viewOrdersByUserIDorder(int id);
+
+        //int viewOrdersByUserIDorder(int id);
 
     }
 }
