@@ -83,6 +83,12 @@ namespace WebApplication3.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/category/search/{searchString}")]
+        public List<Category> GetCategoriesBySearch(string searchString)
+        {
+            return repository.GetCategoriesBySearch(searchString);
+        }
         
     }
 }
