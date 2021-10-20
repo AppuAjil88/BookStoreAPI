@@ -55,6 +55,20 @@ namespace WebApplication3.Controllers
             return repository.UpdateBook(id, book);
         }
 
+        [HttpGet]
+        [Route("api/book/search/{searchString}")]
+        public List<Book> GetBookBySearch(string searchString)
+        {
+            return repository.GetBookBySearch(searchString);
+        }
+
+        [HttpGet]
+        [Route("api/book/searchISBN/{searchString}")]
+        public List<Book> GetBookBySearchISBN(string searchString)
+        {
+            return repository.GetBookBySearchISBN(searchString);
+        }
+
         //public static List<Book> bookList = new List<Book>()
         //{
         //    new Book(){ Id=1, Title="Inferno", Author="Dan Brown", Price=500},
