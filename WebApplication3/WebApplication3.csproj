@@ -119,6 +119,7 @@
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WishListController.cs" />
@@ -134,10 +135,13 @@
     <Compile Include="Models\CartSQLImpl.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategorySQLImpl.cs" />
+    <Compile Include="Models\Coupon.cs" />
+    <Compile Include="Models\CouponSQLImpl.cs" />
     <Compile Include="Models\IAddressRespository.cs" />
     <Compile Include="Models\IBookRepository.cs" />
     <Compile Include="Models\ICartRepository.cs" />
     <Compile Include="Models\ICategoryRespository.cs" />
+    <Compile Include="Models\ICouponRepository.cs" />
     <Compile Include="Models\IOrderRepository.cs" />
     <Compile Include="Models\IUserRepository.cs" />
     <Compile Include="Models\IWishListRepository.cs" />
