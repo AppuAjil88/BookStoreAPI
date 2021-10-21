@@ -15,6 +15,5 @@ namespace WebApplication3.Models
         bool deleteAddress(int id);
         Address updateAddress(int id, Address address);
 
-
     }
 }

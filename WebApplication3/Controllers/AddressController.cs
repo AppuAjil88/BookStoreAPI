@@ -23,7 +23,7 @@ namespace WebApplication3.Controllers
         public HttpResponseMessage Get(int id)
         {
             var result = repository.viewAddressByID(id);
-            if (result.AddressStr != null)
+            if (result.AddressID != 0)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
@@ -31,6 +31,7 @@ namespace WebApplication3.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "address id not found");
             }
+            
         }
 
         [HttpGet]
@@ -44,7 +45,7 @@ namespace WebApplication3.Controllers
         public HttpResponseMessage Post(Address address)
         {
             var data = repository.addAddress(address);
-            if (data.AddressStr == null)
+            if (data.AddressID == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, " address not added ");
             }
@@ -68,25 +69,18 @@ namespace WebApplication3.Controllers
             }
 
         }
+        [HttpPut]
         public HttpResponseMessage Put(int id, Address address)
         {
             var data = repository.updateAddress(id, address);
-            if (data.AddressStr == null)
+            if (data.AddressID == null)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, " address not modified (id error most prolly) ");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, " address not modified (Error in data) ");
             }
             else
             {
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
-
-
         }
-
-
-
-
-
-
     }
 }

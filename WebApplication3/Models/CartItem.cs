@@ -9,5 +9,6 @@ namespace WebApplication3.Models
     {
         public int userId { get; set; }
         public int bookId { get; set; }
+        //public int Quantity { get; }
     }
 }

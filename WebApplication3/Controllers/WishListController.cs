@@ -38,7 +38,7 @@ namespace WebApplication3.Controllers
             }
             else
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, " book not added to cart");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, " Book already in wishlist ");
             }
         }
 
