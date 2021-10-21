@@ -67,11 +67,7 @@ namespace WebApplication3.Models
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand();
-<<<<<<< HEAD
-                comm.CommandText = $"select * from Orders  where UserID = {id}";
-=======
                 comm.CommandText = "select * from Orders where UserID = " + id + "";
->>>>>>> 8834cc8b762fd575cb154322775c620c784358d7
                 comm.Connection = conn;
                 conn.Open();
                 SqlDataReader dr = comm.ExecuteReader();
