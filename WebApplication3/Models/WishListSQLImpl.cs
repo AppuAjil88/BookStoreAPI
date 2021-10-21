@@ -74,9 +74,17 @@ namespace WebApplication3.Models
                 comm.CommandText = "insert into Wishlist  values (" + userId + ", " + bookId + ")";
                 comm.Connection = conn;
                 conn.Open();
-                SqlDataReader dr = comm.ExecuteReader(); //comm.ExecuteNonQuery();
-                conn.Close();
-                return true;
+                try
+                {
+                    SqlDataReader dr = comm.ExecuteReader(); //comm.ExecuteNonQuery();
+                    conn.Close();
+                    return true;
+                }
+                catch(SqlException ex)
+                {
+                    conn.Close();
+                    return false;
+                }
             }
         }
 

@@ -12,9 +12,11 @@ namespace WebApplication3.Models
 
         //bool addBookToCartById(int userId, int bookId);
         //bool addBookToCartById(CartItem cartItem);
-        bool UpdateCartByQuantity(int userId, int bookId, int quantity);
+        //bool UpdateCartByQuantity(int userId, int bookId, int quantity);
         bool AddBookToCartById(int userId, int bookId);
         bool RemoveFromCartById(int userId, int bookId);
         bool RemoveCartofUser(int userId);
+        int GetCartForQuantity(int userId, int bookId);
+        bool updateCartQuantity(int userId, int bookId, int quantity);
     }
 }

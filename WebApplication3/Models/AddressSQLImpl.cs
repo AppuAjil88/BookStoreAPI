@@ -15,7 +15,7 @@ namespace WebApplication3.Models
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand();
-                comm.CommandText = "insert into Address ( UserID, Address) values (" + address.UserID + ", '" + address.AddressStr + "' ) ";
+                comm.CommandText = "insert into Address(UserID, [Name], Mobile, BuildingName, PinCode, Locality, District, Landmark) values(" + address.UserID + ",'"+ address.Name + "'," + address.Mobile +",'"+ address.BuildingName + "'," + address.Pincode + ",'" + address.Locality + "','" + address.District + "','" + address.Landmark + "')";
                 comm.Connection = conn;
                 conn.Open();
                 int rows = comm.ExecuteNonQuery();
@@ -27,7 +27,6 @@ namespace WebApplication3.Models
                     Address newaddr = new Address(); // returning empty address if not successful
                     return newaddr;
                 }
-
             }
         }
 
@@ -55,7 +54,9 @@ namespace WebApplication3.Models
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand();
-                comm.CommandText = "update Address set Address = '"+address.AddressStr+"' where AddressID = " + address.AddressID + "";
+                comm.CommandText = "update Address set UserID = "+address.UserID+", [Name] ='"+address.Name + "', Mobile =" + address.Mobile + ", BuildingName ='" + address.BuildingName + "', PinCode =" +
+                    address.Pincode + ",Locality = '"+address.Locality+"',District ='"+ address.District+"',Landmark = '"+address.Landmark+"' where AddressID = " + address.AddressID + "";
+
                 comm.Connection = conn;
                 conn.Open();
                 int rows = comm.ExecuteNonQuery();
@@ -78,7 +79,8 @@ namespace WebApplication3.Models
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand();
-                comm.CommandText = "select * from Address where AddressID = " + id + "";
+                //comm.CommandText = "select top(1) AddressID, UserID, [Name], Mobile, BuildingName, PinCode, Locality, District, Landmark from Address where UserID ="+ id;
+                comm.CommandText = "select * from Address where UserID =" + 1;
                 comm.Connection = conn;
                 conn.Open();
                 SqlDataReader dr = comm.ExecuteReader();
@@ -86,7 +88,13 @@ namespace WebApplication3.Models
                 {
                     address.AddressID = dr.GetInt32(0);
                     address.UserID = dr.GetInt32(1);
-                    address.AddressStr = dr.GetString(2);
+                    address.Name = dr.GetString(2);
+                    address.Mobile = dr.GetInt32(3);
+                    address.BuildingName = dr.GetString(4);
+                    address.Pincode = dr.GetInt32(5);
+                    address.Locality = dr.GetString(6);
+                    address.District = dr.GetString(7);
+                    address.Landmark= dr.GetString(8);
                 }
                 conn.Close();
                 return address;
@@ -111,14 +119,18 @@ namespace WebApplication3.Models
                     Address address = new Address();
                     address.AddressID = dr.GetInt32(0);
                     address.UserID = dr.GetInt32(1);
-                    address.AddressStr = dr.GetString(2);
+                    address.Name = dr.GetString(2);
+                    address.Mobile = dr.GetInt32(3);
+                    address.BuildingName = dr.GetString(4);
+                    address.Pincode = dr.GetInt32(5);
+                    address.Locality = dr.GetString(6);
+                    address.District = dr.GetString(7);
+                    address.Landmark = dr.GetString(8);
                     addresses.Add(address);
                 }
                 conn.Close();
                 return addresses;
-
             }
-
         }
     }
 }

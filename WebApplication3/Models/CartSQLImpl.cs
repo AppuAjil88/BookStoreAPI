@@ -48,8 +48,8 @@ namespace WebApplication3.Models
                         bookitem.CatId = dr.GetInt32(1);
                         bookitem.Title = dr.GetString(2);
                         bookitem.ISBN = dr.GetInt32(3);
-                        bookitem.Price = dr.GetInt32(4);
-                        bookitem.Year = dr.GetInt32(5);
+                        bookitem.Price = dr.GetInt32(5);
+                        bookitem.Year = dr.GetInt32(4);
                         bookitem.Description = dr.GetString(6);
                         bookitem.Position = dr.GetInt32(7);
                         bookitem.Status = dr.GetBoolean(8);
@@ -63,6 +63,28 @@ namespace WebApplication3.Models
 
             }
             return BookItems;
+        }
+
+
+        
+        public int GetCartForQuantity(int userId, int bookId)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
+            int Quantity = 0;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand comm = new SqlCommand();
+                comm.CommandText = "select Quantity from Cart where UserID = " + userId + " and BookId = " +bookId;
+                comm.Connection = conn;
+                conn.Open();
+                SqlDataReader dr = comm.ExecuteReader();
+                while (dr.Read())
+                {
+                    Quantity = dr.GetInt32(0);
+                }
+                conn.Close();
+                return Quantity;
+            }
         }
 
         //public bool addBookToCartById(int userId, int bookId)
@@ -99,15 +121,22 @@ namespace WebApplication3.Models
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand();
-                comm.CommandText = "insert into Cart  values (" + userId + ", " + bookId + ")";
+                comm.CommandText = "insert into Cart  values (" + userId + ", " + bookId + ", " + 1 +")";
                 comm.Connection = conn;
                 conn.Open();
-                comm.ExecuteNonQuery();
-                conn.Close();
-                return true;
+                try
+                {
+                    SqlDataReader dr = comm.ExecuteReader(); //comm.ExecuteNonQuery();
+                    conn.Close();
+                    return true;
+                }
+                catch (SqlException ex)
+                {
+                    conn.Close();
+                    return false;
+                }
             }
         }
-
 
         public bool RemoveFromCartById(int userId, int bookId)
         {
@@ -137,9 +166,25 @@ namespace WebApplication3.Models
                 return true;
             }
         }
-        public bool UpdateCartByQuantity(int userId, int bookId, int quantity)
+        
+        public bool updateCartQuantity(int userId, int bookId, int quantity)
         {
-            return true;
+            //Console.WriteLine(quantity);
+            //Console.ReadKey();
+            //int Quantity = Int32.Parse(quantity);
+          
+            string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand comm = new SqlCommand();
+                
+                comm.CommandText = "UPDATE Cart SET Quantity =" + quantity +" WHERE UserId = "+userId+" and BookID = "+bookId;
+                comm.Connection = conn;
+                conn.Open();
+                comm.ExecuteReader();
+                conn.Close();
+                return true;
+            }
         }
     }
 }

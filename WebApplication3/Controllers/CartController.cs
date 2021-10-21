@@ -54,24 +54,24 @@ namespace WebApplication3.Controllers
             }
             else
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item not added");
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item already in cart");
             }
         }
 
-        [HttpGet]
-        [Route("api/cart/add/{userId}/{bookId}/{quantity}")]
-        public HttpResponseMessage UpdateCartByQuantity(int userId, int bookId, int quantity)
-        {
-            var result = repository.UpdateCartByQuantity(userId, bookId, quantity);
-            if(result == true)
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, "Qnatity updated");
-            }
-            else
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Quantity not updated");
-            }
-        }
+        //[HttpGet]
+        //[Route("api/cart/add/{userId}/{bookId}/{quantity}")]
+        //public HttpResponseMessage UpdateCartByQuantity(int userId, int bookId, int quantity)
+        //{
+        //    var result = repository.UpdateCartByQuantity(userId, bookId, quantity);
+        //    if(result == true)
+        //    {
+        //        return Request.CreateResponse(HttpStatusCode.OK, "Qnatity updated");
+        //    }
+        //    else
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Quantity not updated");
+        //    }
+        //}
 
         [HttpGet]
         [Route("api/cart/remove/{userId}/{bookId}")]
@@ -102,5 +102,27 @@ namespace WebApplication3.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Cart not removed");
             }
         }
+        [HttpGet]
+        [Route("api/cart/quantity/{userId}/{bookId}")]
+        public IHttpActionResult GetCartForQuantity(int userId, int bookId)
+        {
+            var result = repository.GetCartForQuantity(userId, bookId);
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("api/cart/update/quantity/{userId}/{bookId}/{quantity}")]
+        public HttpResponseMessage updateCartQuantity(int userId, int bookId, int quantity)
+        {
+            var result = repository.updateCartQuantity(userId, bookId, quantity);
+            if (result == true)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "Quantity updated");
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Quantity not updated");
+            }
+        }
+
     }
 }
