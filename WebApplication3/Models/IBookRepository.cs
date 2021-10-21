@@ -13,5 +13,7 @@ namespace WebApplication3.Models
         Book AddBook(Book b);
         Book UpdateBook(int id, Book b);
         void DeleteBook(int id);
+        List<Book> GetBookBySearch(string searchString);
+        List<Book> GetBookBySearchISBN(string searchString);
     }
 }

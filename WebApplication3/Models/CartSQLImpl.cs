@@ -93,7 +93,7 @@ namespace WebApplication3.Models
         //       return true;
         //    }
         //}
-        public bool addBookToCartById(int userId, int bookId)
+        public bool AddBookToCartById(int userId, int bookId)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -136,6 +136,10 @@ namespace WebApplication3.Models
                 conn.Close();
                 return true;
             }
+        }
+        public bool UpdateCartByQuantity(int userId, int bookId, int quantity)
+        {
+            return true;
         }
     }
 }

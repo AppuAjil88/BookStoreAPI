@@ -67,7 +67,11 @@ namespace WebApplication3.Models
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand();
+<<<<<<< HEAD
                 comm.CommandText = $"select * from Orders  where UserID = {id}";
+=======
+                comm.CommandText = "select * from Orders where UserID = " + id + "";
+>>>>>>> 8834cc8b762fd575cb154322775c620c784358d7
                 comm.Connection = conn;
                 conn.Open();
                 SqlDataReader dr = comm.ExecuteReader();
@@ -88,5 +92,67 @@ namespace WebApplication3.Models
 
             }
         }
+        public List<BookItemForOrder> viewOrdersByUserIDorder(int id)
+        {
+            List<Order> orders = new List<Order>();
+            List<BookItemForOrder> BookItems = new List<BookItemForOrder>();
+            List<int> Ids = new List<int>();
+            List<string> dates = new List<string>();
+            string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand comm = new SqlCommand();
+                comm.CommandText = "select * from Orders where UserID = " + id + "";
+                comm.Connection = conn;
+                conn.Open();
+                SqlDataReader dr = comm.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Ids.Add(dr.GetInt32(2));
+                    string s = dr.GetDateTime(3).ToString();
+                    s = s.Substring(0, 10);
+                    dates.Add(s);
+                }
+                dr.Close();
+                conn.Close();
+            }
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand comm = new SqlCommand();
+                for (int i = 0; i < Ids.Count; i++)
+                {
+                    comm.CommandText = "select * from Book where BookId = " + Ids[i];
+                    comm.Connection = conn;
+                    conn.Open();
+                    SqlDataReader dr = comm.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        BookItemForOrder bookitem = new BookItemForOrder();
+                        bookitem.Id = dr.GetInt32(0);
+                        bookitem.CatId = dr.GetInt32(1);
+                        bookitem.Title = dr.GetString(2);
+                        bookitem.ISBN = dr.GetInt32(3);
+                        bookitem.Price = dr.GetInt32(4);
+                        bookitem.Year = dr.GetInt32(5);
+                        bookitem.Description = dr.GetString(6);
+                        bookitem.Position = dr.GetInt32(7);
+                        bookitem.Status = dr.GetBoolean(8);
+                        bookitem.Image = dr.GetString(9);
+                        bookitem.Author = dr.GetString(10);
+                        bookitem.Date = dates[i];
+
+                        BookItems.Add(bookitem);
+                    }
+                    dr.Close();
+                    conn.Close();
+                }
+
+            }
+            return BookItems;
+        }
+
     }
 }
