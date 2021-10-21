@@ -95,6 +95,38 @@ namespace WebApplication3.Models
             }
         }
 
+        public List<Category> GetCategoriesBySearch(string searchString)
+        {
+            List<Category> categories = new List<Category>();
+            string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand comm = new SqlCommand();
+                comm.CommandText = "select * from Category where categoryName Like '" + searchString + "%'";
+                comm.Connection = conn;
+                conn.Open();
+                SqlDataReader dr = comm.ExecuteReader();
+
+                while (dr.Read())
+                {
+
+                    Category category = new Category();
+                    category.CategoryID = dr.GetInt32(0);
+                    category.CategoryName = dr.GetString(1);
+                    category.Description = dr.GetString(2);
+                    category.Image = dr.GetString(3);
+                    category.Status = dr.GetInt32(4);
+                    category.Position = dr.GetInt32(5);
+                    category.CreatedAt = dr.GetDateTime(6);
+                    categories.Add(category);
+
+                }
+                conn.Close();
+                return categories;
+
+            }
+        }
+
         public Category GetCategoryById(int id)
         {
             Category category = new Category();

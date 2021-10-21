@@ -135,6 +135,70 @@ namespace WebApplication3.Models
             return book;
         }
 
+        public List<Book> GetBookBySearch(string searchString)
+        {
+            List<Book> bookList = new List<Book>();
+            string ConnectionStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(ConnectionStr))
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "select * from Book where Title Like '" + searchString + "%'";
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    Book book = new Book();
+                    book.Id = dr.GetInt32(0);
+                    book.CatId = dr.GetInt32(1);
+                    book.Title = dr.GetString(2);
+                    book.ISBN = dr.GetInt32(3);
+                    book.Year = dr.GetInt32(4);
+                    book.Price = dr.GetInt32(5);
+                    book.Description = dr.GetString(6);
+                    book.Position = dr.GetInt32(7);
+                    if (dr.GetBoolean(8)) { book.Status = true; }
+                    else { book.Status = false; }
+                    book.Image = dr.GetString(9);
+                    book.Author = dr.GetString(10);
+                    bookList.Add(book);
+                }
+            }
+            return bookList;
+        }
+
+        public List<Book> GetBookBySearchISBN(string searchString)
+        {
+            List<Book> bookList = new List<Book>();
+            string ConnectionStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(ConnectionStr))
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "select * from Book where ISBN Like '" + searchString + "%'";
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    Book book = new Book();
+                    book.Id = dr.GetInt32(0);
+                    book.CatId = dr.GetInt32(1);
+                    book.Title = dr.GetString(2);
+                    book.ISBN = dr.GetInt32(3);
+                    book.Year = dr.GetInt32(4);
+                    book.Price = dr.GetInt32(5);
+                    book.Description = dr.GetString(6);
+                    book.Position = dr.GetInt32(7);
+                    if (dr.GetBoolean(8)) { book.Status = true; }
+                    else { book.Status = false; }
+                    book.Image = dr.GetString(9);
+                    book.Author = dr.GetString(10);
+                    bookList.Add(book);
+                }
+            }
+            return bookList;
+        }
+
         public Book UpdateBook(int id, Book b)
         { 
             int statusTemp;
