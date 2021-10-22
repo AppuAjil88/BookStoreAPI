@@ -13,7 +13,7 @@ namespace WebApplication3.Models
         Address viewAddressByID(int id);
         List<Address> viewAddressByUserID(int id);
         bool deleteAddress(int id);
-        Address updateAddress(int id, Address address);
+        Address updateAddress(Address address);
 
     }
 }
