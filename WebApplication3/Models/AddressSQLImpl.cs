@@ -48,8 +48,9 @@ namespace WebApplication3.Models
             }
         }
 
-        public Address updateAddress(int id, Address address)
+        public Address updateAddress( Address address)
         {
+            int id = address.AddressID;
             string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
