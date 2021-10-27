@@ -25,6 +25,12 @@ namespace WebApplication3.Controllers
         {
             return repository.GetCoupons();
         }
+        [HttpGet]
+        [Route("api/coupon/{code}")]
+        public Coupon GetCoupon(string code)
+        {
+            return repository.getCouponByCode(code);
+        }
 
         [HttpGet]
         [Route("api/coupon/check/{couponCode}")]

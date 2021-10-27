@@ -12,5 +12,6 @@ namespace WebApplication3.Models
         bool checkCoupon(string couponCode);
         Coupon addCoupon(Coupon coupon);
         bool deleteCouponById(int id);
+        Coupon getCouponByCode(string icode);
     }
 }
