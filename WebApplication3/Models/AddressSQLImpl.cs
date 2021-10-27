@@ -48,8 +48,9 @@ namespace WebApplication3.Models
             }
         }
 
-        public Address updateAddress(int id, Address address)
+        public Address updateAddress( Address address)
         {
+            int id = address.AddressID;
             string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -80,7 +81,7 @@ namespace WebApplication3.Models
             {
                 SqlCommand comm = new SqlCommand();
                 //comm.CommandText = "select top(1) AddressID, UserID, [Name], Mobile, BuildingName, PinCode, Locality, District, Landmark from Address where UserID ="+ id;
-                comm.CommandText = "select * from Address where UserID =" + 1;
+                comm.CommandText = "select * from Address where UserID =" + id;
                 comm.Connection = conn;
                 conn.Open();
                 SqlDataReader dr = comm.ExecuteReader();

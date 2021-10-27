@@ -31,7 +31,7 @@ namespace WebApplication3.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "address id not found");
             }
-            
+
         }
 
         [HttpGet]
@@ -70,10 +70,10 @@ namespace WebApplication3.Controllers
 
         }
         [HttpPut]
-        public HttpResponseMessage Put(int id, Address address)
+        public HttpResponseMessage Put( Address address)
         {
-            var data = repository.updateAddress(id, address);
-            if (data.AddressID == null)
+            var data = repository.updateAddress(address);
+            if (data.UserID == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, " address not modified (Error in data) ");
             }
