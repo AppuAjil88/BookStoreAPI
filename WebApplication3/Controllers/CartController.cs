@@ -54,7 +54,7 @@ namespace WebApplication3.Controllers
             }
             else
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item already in cart");
+                return Request.CreateResponse(HttpStatusCode.OK, "Item already in cart");
             }
         }
 
