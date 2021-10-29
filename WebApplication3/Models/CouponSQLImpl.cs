@@ -15,10 +15,10 @@ namespace WebApplication3.Models
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand();
-                comm.CommandText = "insert into Coupon ( Discount, MaxAmount,CouponCode) values (" + coupon.Discount + ", " + coupon.MaxAmount + " , '" + coupon.CouponCode + "'";
+                comm.CommandText = $"insert into Coupon ( Discount, MaxAmount,CouponCode) values ( {coupon.Discount} , {coupon.MaxAmount} , '{coupon.CouponCode}') ";
                 comm.Connection = conn;
                 conn.Open();
-                int rows = comm.ExecuteNonQuery();
+                SqlDataReader dr = comm.ExecuteReader();
                 conn.Close();
                 return coupon;
 
@@ -35,7 +35,7 @@ namespace WebApplication3.Models
                 comm.Connection = conn;
                 conn.Open();
                 SqlDataReader dr = comm.ExecuteReader();
-                if(dr.Read() == true)
+                if (dr.Read() == true)
                 {
                     conn.Close();
                     return true;
@@ -93,6 +93,32 @@ namespace WebApplication3.Models
                 return coupons;
 
             }
+        }
+
+        public Coupon getCouponByCode(string code)
+        {
+            Coupon coupon = new Coupon();
+            string connectionString = ConfigurationManager.ConnectionStrings["mydb"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+
+                SqlCommand comm = new SqlCommand();
+                comm.CommandText = $"select * from Coupon where CouponCode = '{code}'";
+                comm.Connection = conn;
+                conn.Open();
+                SqlDataReader dr = comm.ExecuteReader();
+
+                while (dr.Read())
+                {
+
+                    coupon.CouponID = dr.GetInt32(0);
+                    coupon.Discount = dr.GetInt32(1);
+                    coupon.MaxAmount = dr.GetInt32(2);
+                    coupon.CouponCode = dr.GetString(3);
+                }
+                conn.Close();
+            }
+            return coupon;
         }
     }
 }
